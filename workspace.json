@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "projects": {
+    "druk-team-db": {
+      "root": "apps/druk-team-db",
+      "sourceRoot": "apps/druk-team-db/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/druk-team-db",
+            "main": "apps/druk-team-db/src/main.ts",
+            "tsConfig": "apps/druk-team-db/tsconfig.app.json",
+            "assets": ["apps/druk-team-db/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/druk-team-db/src/environments/environment.ts",
+                  "with": "apps/druk-team-db/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "druk-team-db:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/druk-team-db/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/druk-team-db"],
+          "options": {
+            "jestConfig": "apps/druk-team-db/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "druk-team-db"
+}
